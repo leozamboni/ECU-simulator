@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      #ft {
+        width: 600px;
+        height: 300px;
+        color: white;
+        background-color: black;
+      }
+
+      #ft .row {
+        width: 100;
+        height: 35%;
+      }
+
+      #ft .row .col {
+        width: 33.33%;
+        height: 100%;
+        float: left;
+      }
+
+      #ft :first-child {
+        height: 20%;
+      }
+
+      #ft .row .col.rpm {
+        width: 30%;
+        text-align: right;
+      }
+
+      #ft .row .col.rpm #rpm {
+        font-size: 3em;
+        font-weight: bold;
+      }
+
+      #ft .row .col.max-rpm {
+        width: 20%;
+      }
+
+      #ft .row .col.bar {
+        background: linear-gradient(90deg, rgba(255,111,0,1) 0%, rgba(255,0,0,1) 100%);
+        /* margin-left: 23%; */
+        /* border-style: solid; */
+        /* border-width: 0 0 50px 50px;  */
+        /* border-color: transparent transparent linear-gradient(90deg, rgba(255,111,0,1) 50%, rgba(255,0,0,1) 100%) transparent; */
+        /* background-color: transparent; */
+        /* width: calc(100% - 40% - 20px);  */
+         width: calc(100% - 50%);
+         /* border-image: transparent transparent linear-gradient(90deg, rgba(255,111,0,1) 50%, rgba(255,0,0,1) 100%) transparent */
+
+      }
+
+      #ft .row .col.max-rpm #max-rpm {
+        font-size: 2em;
+      }
+
+      #ft .row.bar {
+        height: 7%;
+      }
+
+      #ft .bar {
+
+        background: linear-gradient(90deg, rgba(255,196,0,1) 0%, rgba(255,111,0,1) 50%, rgba(255,0,0,1) 100%);
+      }
+
+      #ft .row .col.gear {
+        text-align: center;
+      }
+
+      #ft .row .col.gear :first-child {
+        color: orange;
+      }
+
+      #ft .row .col.gear #gear {
+        font-size: 7em;
+        font-weight: bold;
+      }
+
+      #ft .row .col.mph {
+        text-align: right;
+      }
+
+      #ft .row .col.mph :first-child {
+        color: orange;
+      }
+
+      #ft .row .col.mph #mph {
+        font-size: 4em;
+        font-weight: bold;
+      }
+
+      #ft .row .col.tps {
+        margin-top: 8%;
+        text-align: center;
+      }
+
+      #ft .row .col.tps :first-child {
+        color: orange;
+      }
+
+      #ft .row .col.tps #tps {
+        background-color: green;
+        width: 100%;
+        height: 15px;
+      }
+
+      #ft .row .col.info {
+        margin-top: 8%;
+        text-align: center;
+        display: inline-block;
+      }
+
+      #ft .row .col.info .map {
+        width: 40%;
+        height: 100%;
+        float: left;
+        margin-left: 10px;
+      }
+
+      #ft .row .col.info .map :first-child {
+        color: orange;
+      }
+
+      #ft .row .col.info .map :last-child {
+        font-weight: bold;
+      }
+
+      #ft .row .col.info .bat {
+        width: 40%;
+        height: 100%;
+        float: left;
+        margin-left: 10px;
+      }
+
+      #ft .row .col.info .bat :first-child {
+        color: orange;
+      }
+
+      #ft .row .col.info .bat :last-child {
+        font-weight: bold;
+      }
+
+      #ft .row .col.pressure {
+        text-align: center;
+        display: inline-block;
+      }
+
+      #ft .row .col.pressure .oil {
+        width: 40%;
+        height: 100%;
+        float: left;
+        margin-left: 10px;
+      }
+
+      #ft .row .col.pressure .oil #oilp {
+        height: 50%;
+        height: 70%;
+        background-color: green;
+      }
+
+      #ft .row .col.pressure .fuel {
+        width: 40%;
+        height: 100%;
+        float: left;
+        margin-left: 10px;
+      }
+
+      #ft .row .col.pressure .fuel #fuelp {
+        height: 50%;
+        height: 70%;
+        background-color: orange;
+      }
+
+      #ft .row .col.pressure p {
+        color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="ft">
+      <div class="row">
+        <div class="col rpm">
+          <p id="rpm">7380</p>
+        </div>
+        <div class="col max-rpm">
+          <p id="max-rpm">11000</p>
+          <br />
+          <p>RPM</p>
+        </div>
+        <div class="col bar"></div>
+      </div>
+      <div class="row bar"></div>
+      <pre>
+        1        2        3        4        5        6        7        8        9</pre
+      >
+      <div class="row">
+        <div class="col"></div>
+        <div class="col gear">
+          <p>Gear</p>
+          <p id="gear">3</p>
+        </div>
+        <div class="col mph">
+          <p>Front</p>
+          <p id="mph">115</p>
+          <p>Mph</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col info">
+          <div class="map">
+            <p>MAP</p>
+            <p>26.0</p>
+          </div>
+          <div class="bat">
+            <p>Bat.</p>
+            <p>16.1</p>
+          </div>
+        </div>
+        <div class="col tps">
+          <p>TPS</p>
+          <div id="tps"></div>
+        </div>
+        <div class="col pressure">
+          <div class="oil">
+            <p>Oil P.</p>
+            <div id="oilp"></div>
+          </div>
+          <div class="fuel">
+            <p>Fuel P.</p>
+            <div id="fuelp"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
