@@ -55,7 +55,8 @@ class SPageFileStatic(Structure):
 		return {
 			"maxRpm": self.maxRpm,
 			"maxTurboBoost": self.maxTurboBoost,
-			"maxFuel": self.maxFuel
+			"maxFuel": self.maxFuel,
+			"maxTorque": self.maxTorque,
 		}
 
 class SPageFileGraphic(Structure):
@@ -227,6 +228,8 @@ class SPageFilePhysics(Structure):
 			"turboBoost": self.turboBoost,
 			"fuel": self.fuel,
 			"gas": self.gas,
+			"currentMaxRpm": self.currentMaxRpm,
+			"brake": self.brake,
 		}
 
 def read_physics():
