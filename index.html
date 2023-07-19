@@ -82,6 +82,26 @@
     #ft .row .col.gear #gear {
       font-size: 7em;
       font-weight: bold;
+
+
+
+    }
+
+    #ft .row .col.gear #gear.animate {
+      transition-timing-function: linear;
+      animation-name: myfirst;
+      animation-duration: 1s;
+      animation-fill-mode: backwards;
+    }
+
+    @keyframes myfirst {
+      0% {
+        font-size: 2em;
+      }
+
+      100% {
+        font-size: 6em;
+      }
     }
 
     #ft .row .col.kmh {
@@ -102,18 +122,18 @@
       text-align: center;
     }
 
-    #ft .row .col.tps :first-child {
+    #ft .row .col.tps p {
       color: orange;
     }
 
-    #ft .row .col.tps #tps {
+    #ft .row .col.tps div {
       background-color: #242424;
       width: 100%;
       height: 15px;
       text-align-last: justify;
     }
 
-    #ft .row .col.tps #tps span {
+    #ft .row .col.tps div span {
       background-color: black;
       display: inline-block;
       width: 1.5px;
@@ -121,7 +141,7 @@
       transform: translateY(-20%);
     }
 
-    #ft .row .col.tps #tps span p {
+    #ft .row .col.tps div span p {
       margin-top: 10px;
       color: white;
       position: absolute;
@@ -129,14 +149,14 @@
     }
 
 
-    #ft .row .col.tps #tps #tps-bar {
+    #ft .row .col.tps div #tps-bar {
       height: 100%;
+      width: 0%;
       background-color: green;
       margin-top: -20px;
     }
 
     #ft .row .col.info {
-      margin-top: 8%;
       text-align: center;
       display: inline-block;
     }
@@ -156,46 +176,15 @@
       font-weight: bold;
     }
 
-    #ft .row .col.info .bat {
-      width: 40%;
-      height: 100%;
-      float: left;
-      margin-left: 10px;
-    }
-
-    #ft .row .col.info .bat :first-child {
+    #ft .row .col.info .fuel {
       color: orange;
-    }
-
-    #ft .row .col.info .bat :last-child {
-      font-weight: bold;
-    }
-
-    #ft .row .col.pressure {
-      text-align: center;
-      display: inline-block;
-    }
-
-    #ft .row .col.pressure .oil {
       width: 40%;
       height: 100%;
       float: left;
       margin-left: 10px;
     }
 
-    #ft .row .col.pressure .oil #oilp {
-      height: 70%;
-      background-color: green;
-    }
-
-    #ft .row .col.pressure .fuel {
-      width: 40%;
-      height: 100%;
-      float: left;
-      margin-left: 10px;
-    }
-
-    #ft .row .col.pressure .fuel .fuelp {
+    #ft .row .col.info .fuel div {
       background-color: #242424;
       overflow-y: hidden;
       height: 70%;
@@ -203,31 +192,22 @@
       position: relative;
     }
 
-    ::-webkit-scrollbar {
-      width: 2px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      width: 2px;
-      background-color: red;
-    }
-
-    #ft .row .col.pressure .fuel .fuelp #fuelp-bar {
+    #ft .row .col.info .fuel div #fuel-bar {
       width: 100%;
-      height: 30%;
+      height: 0%;
       bottom: 0;
       background-color: orange;
       position: absolute;
     }
 
-    #ft .row .col.pressure .fuel .fuelp p {
+    #ft .row .col.info .fuel div p {
       color: black;
       font-weight: bold;
       position: relative;
       font-size: 8pt;
     }
 
-    #ft .row .col.pressure .fuel .fuelp hr {
+    #ft .row .col.info .fuel div hr {
       border: 1px solid black;
       width: 80%;
       margin-left: 10%;
@@ -235,7 +215,89 @@
       position: relative;
     }
 
-    #ft .row .col.pressure p {
+
+    #ft .row .col.pedals {
+      text-align: center;
+      display: inline-block;
+    }
+
+    #ft .row .col.pedals .gas {
+      width: 40%;
+      height: 100%;
+      float: left;
+      margin-left: 10px;
+    }
+
+    #ft .row .col.pedals .gas div {
+      background-color: #242424;
+      overflow-y: hidden;
+      height: 70%;
+      width: 100%;
+      position: relative;
+    }
+
+    #ft .row .col.pedals .gas div #gas-bar {
+      width: 100%;
+      height: 30%;
+      bottom: 0;
+      background-color: green;
+      position: absolute;
+    }
+
+    #ft .row .col.pedals .gas div p {
+      color: black;
+      font-weight: bold;
+      position: relative;
+      font-size: 8pt;
+    }
+
+    #ft .row .col.pedals .gas div hr {
+      border: 1px solid black;
+      width: 80%;
+      margin-left: 10%;
+      margin-top: 2px;
+      position: relative;
+    }
+
+    #ft .row .col.pedals .brake {
+      width: 40%;
+      height: 100%;
+      float: left;
+      margin-left: 10px;
+    }
+
+    #ft .row .col.pedals .brake div {
+      background-color: #242424;
+      overflow-y: hidden;
+      height: 70%;
+      width: 100%;
+      position: relative;
+    }
+
+    #ft .row .col.pedals .brake div #brake-bar {
+      width: 100%;
+      height: 30%;
+      bottom: 0;
+      background-color: red;
+      position: absolute;
+    }
+
+    #ft .row .col.pedals .brake div p {
+      color: black;
+      font-weight: bold;
+      position: relative;
+      font-size: 8pt;
+    }
+
+    #ft .row .col.pedals .brake div hr {
+      border: 1px solid black;
+      width: 80%;
+      margin-left: 10%;
+      margin-top: 2px;
+      position: relative;
+    }
+
+    #ft .row .col.pedals p {
       color: orange;
     }
 
@@ -282,17 +344,29 @@
     <div class="row">
       <div class="col info">
         <div class="map">
-          <p>MAP</p>
-          <p>26.0</p>
+          <p>Gas</p>
+          <p id="gas">26.0</p>
         </div>
-        <div class="bat">
-          <p>Bat.</p>
-          <p>16.1</p>
+        <div class="fuel">
+          <p>Fuel</p>
+          <div>
+            <div id="fuel-bar">
+            </div>
+            <p>80%</p>
+            <hr>
+            <p>60%</p>
+            <hr>
+            <p>40%</p>
+            <hr>
+            <p>20%</p>
+            <hr>
+            <p>0%</p>
+          </div>
         </div>
       </div>
       <div class="col tps">
         <p>Turbo Boost</p>
-        <div id="tps">
+        <div>
           <span>
             <p>0%</p>
           </span>
@@ -307,15 +381,27 @@
           <div id="tps-bar"></div>
         </div>
       </div>
-      <div class="col pressure">
-        <div class="oil">
-          <p>Oil</p>
-          <div id="oilp"></div>
+      <div class="col pedals">
+        <div class="gas">
+          <p>Gas</p>
+          <div>
+            <div id="gas-bar">
+            </div>
+            <p>80%</p>
+            <hr>
+            <p>60%</p>
+            <hr>
+            <p>40%</p>
+            <hr>
+            <p>20%</p>
+            <hr>
+            <p>0%</p>
+          </div>
         </div>
-        <div class="fuel">
-          <p>Fuel</p>
-          <div class="fuelp">
-            <div id="fuelp-bar">
+        <div class="brake">
+          <p>Brake</p>
+          <div>
+            <div id="brake-bar">
             </div>
             <p>80%</p>
             <hr>
@@ -332,8 +418,8 @@
     </div>
   </main>
   <script>
-    function renderRPM(percen) {
-      if (percen > 100) return
+    function renderRPM(percent, currentMaxRpmPercent) {
+      if (percent > 100) return
       const rpmBar = document.getElementById('rpm-bar')
       rpmBar.innerHTML = ''
       let defH = 25
@@ -345,27 +431,39 @@
         } else if (i >= 170) {
           rpmBarLi.style.height = '60px'
         }
-        if (i > (percen * 2)) {
-          rpmBarLi.style.backgroundColor = '#242424'
+        if (i > (percent * 2)) {
+          if (i < (currentMaxRpmPercent * 2)) {
+            rpmBarLi.style.backgroundColor = '#424242'
+          } else {
+            rpmBarLi.style.backgroundColor = '#242424'
+          }
         } else {
-          rpmBarLi.style.background = 'linear-gradient(90deg, rgba(255,218,0,1) 0%, rgba(255,0,0,1) 30%)'
+          rpmBarLi.style.background = 'linear-gradient(90deg, rgba(255,218,0,1) 0%, rgba(255,0,0,1) 70%)'
           rpmBarLi.style.backgroundAttachment = 'fixed'
         }
         rpmBar.appendChild(rpmBarLi)
       }
     }
-    renderRPM(-1)
+    renderRPM(-1, -1)
 
-    function renderTurboBoost(percen) {
+    function renderTurboBoost(percent) {
       const tbs = document.getElementById('tps-bar')
-      tbs.style.width = percen + '%'
+      tbs.style.width = percent + '%'
     }
 
-    function renderFuel(percen) {
-      const fbar = document.getElementById('fuelp-bar')
+    function renderFuel(percent) {
+      const fbar = document.getElementById('fuel-bar')
+      fbar.style.height = percent + '%'
+    }
 
+    function renderBrake(percent) {
+      const fbar = document.getElementById('brake-bar')
+      fbar.style.height = percent + '%'
+    }
 
-      fbar.style.height = percen + '%'
+    function renderGas(percent) {
+      const fbar = document.getElementById('gas-bar')
+      fbar.style.height = percent + '%'
     }
 
     async function req() {
@@ -376,6 +474,9 @@
           const rpm = document.getElementById('rpm')
           const kmh = document.getElementById('kmh')
           const max_rpm = document.getElementById('max-rpm')
+          const gas = document.getElementById('gas')
+          gas.innerText = v.physics.gas.toFixed(1)
+
           if (max_rpm.innerText !== v.static.maxRpm) {
             max_rpm.innerText = v.static.maxRpm
             const rpm_bar_numbers = document.getElementById('rpm-bar-numbers')
@@ -384,6 +485,7 @@
             rpm_bar_numbers.innerText = numbers.join(' ')
           }
           kmh.innerText = v.physics.speedKmh.toFixed(0)
+
           if (v.physics.gear - 1 === 0) {
             gear.innerText = 'N'
           }
@@ -391,21 +493,26 @@
             gear.innerText = 'R'
           }
           else {
-            gear.innerText = v.physics.gear - 1
+            if (gear.innerText !== v.physics.gear - 1) {
+              gear.innerText = v.physics.gear - 1
+            }
           }
-          // console.log(v)
+
           rpm.innerText = v.physics.rpms
           if (v.physics.rpms && v.static.maxRpm) {
-            renderRPM((v.physics.rpms / v.static.maxRpm) * 100)
+            renderRPM((v.physics.rpms / v.static.maxRpm) * 100, (v.physics.currentMaxRpm / v.static.maxRpm) * 100)
+            if (((v.physics.rpms / v.static.maxRpm) * 100) === 100) {
+              gear.style.color = 'red'
+            }
           }
-          console.log((v.physics.fuel / v.static.maxFuel) * 100)
+          renderBrake((v.physics.brake / 1) * 100)
+          renderGas((v.physics.gas / 1) * 100)
           if (v.physics.fuel && v.static.maxFuel) {
             renderFuel((v.physics.fuel / v.static.maxFuel) * 100)
           }
           if (v.physics.turboBoost && v.static.maxTurboBoost) {
-            renderTurboBoost((v.physics.turboBoost.toFixed(2) / v.static.maxTurboBoost.toFixed(2)) * 100)
+            renderTurboBoost((v.physics.turboBoost / v.static.maxTurboBoost) * 100)
           }
-          new Promise(r => setTimeout(r, 500));
         })
       req()
     }
