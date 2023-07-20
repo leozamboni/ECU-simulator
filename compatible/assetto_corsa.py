@@ -1,4 +1,3 @@
-# python -m flask --app api run --host=0.0.0.0
 from ctypes import Structure, sizeof, c_float, c_int32, c_wchar, c_int
 import mmap
 
@@ -232,41 +231,19 @@ class SPageFilePhysics(Structure):
 			"brake": self.brake,
 		}
 
-def read_physics():
-	buf = mmap.mmap(-1, sizeof(SPageFilePhysics), u"Local\\acpmf_physics")
-	data = SPageFilePhysics.from_buffer(buf)
-	return data.toDict()
 
-def read_static():
-	buf = mmap.mmap(-1, sizeof(SPageFileStatic), u"Local\\acpmf_static")
-	data = SPageFileStatic.from_buffer(buf)
-	return data.toDict()
+class AssettoCorsa:
+    def read_physics():
+        buf = mmap.mmap(-1, sizeof(SPageFilePhysics), u"Local\\acpmf_physics")
+        data = SPageFilePhysics.from_buffer(buf)
+        return data.toDict()
 
-def read_graphics():
-	buf = mmap.mmap(-1, sizeof(SPageFileGraphic), u"Local\\acpmf_graphics")
-	data = SPageFileGraphic.from_buffer(buf)
-	return data.toDict()
+    def read_static():
+        buf = mmap.mmap(-1, sizeof(SPageFileStatic), u"Local\\acpmf_static")
+        data = SPageFileStatic.from_buffer(buf)
+        return data.toDict()
 
-from flask import Flask
-from flask_cors import CORS, cross_origin
-
-app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
-
-
-@app.route("/")
-@cross_origin()
-def get_values():
-    return {
-		"physics":read_physics(),
-		"static": read_static(),
-	}
-
-@app.route("/ft550")
-@cross_origin()
-def index():
-	file = open('./ECUs/ft550.html',mode='r')
-	return file.read()
-
-   
+    def read_graphics():
+        buf = mmap.mmap(-1, sizeof(SPageFileGraphic), u"Local\\acpmf_graphics")
+        data = SPageFileGraphic.from_buffer(buf)
+        return data.toDict()
