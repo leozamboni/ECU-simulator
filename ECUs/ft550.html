@@ -14,8 +14,9 @@
       margin: 0;
       padding: 0;
     }
-
+    
     body {
+      background-color: black;
       overflow: hidden
     }
 
@@ -464,7 +465,7 @@
     }
 
     async function req() {
-      await fetch('http://127.0.0.1:5000/')
+      await fetch('http://192.168.1.6:5000/')
         .then(T => T.json())
         .then((v) => {
           const gear = document.getElementById('gear')
@@ -498,8 +499,14 @@
           rpm.innerText = v.physics.rpms
           if (v.physics.rpms && v.static.maxRpm) {
             renderRPM((v.physics.rpms / v.static.maxRpm) * 100, (v.physics.currentMaxRpm / v.static.maxRpm) * 100)
-            if (((v.physics.rpms / v.static.maxRpm) * 100) === 100) {
-              gear.style.color = 'red'
+            if (((v.physics.rpms / v.static.maxRpm) * 100) >= 95) {
+              if (gear.style.color === 'red') {
+                gear.style.color = 'white'
+              } else {
+                gear.style.color = 'red'
+              }
+            } else {
+              gear.style.color = 'white'
             }
           }
           renderBrake((v.physics.brake / 1) * 100)
