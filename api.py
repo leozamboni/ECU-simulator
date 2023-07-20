@@ -1,4 +1,4 @@
-# python -m flask --app api run
+# python -m flask --app api run --host=0.0.0.0
 from ctypes import Structure, sizeof, c_float, c_int32, c_wchar, c_int
 import mmap
 
@@ -257,14 +257,15 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/")
 @cross_origin()
-def index():
-	file = open('index.html',mode='r')
-	return file.read()
-
-@app.route("/ac")
-@cross_origin()
 def get_values():
     return {
 		"physics":read_physics(),
 		"static": read_static(),
 	}
+
+@app.route("/ft550")
+@cross_origin()
+def index():
+	file = open('./ECUs/ft550.html',mode='r')
+	return file.read()
+

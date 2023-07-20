@@ -464,7 +464,7 @@
     }
 
     async function req() {
-      await fetch('http://127.0.0.1:5000/ac')
+      await fetch('http://127.0.0.1:5000/')
         .then(T => T.json())
         .then((v) => {
           const gear = document.getElementById('gear')
