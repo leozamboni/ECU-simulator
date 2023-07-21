@@ -233,17 +233,17 @@ class SPageFilePhysics(Structure):
 
 
 class AssettoCorsa:
-    def read_physics():
+    def read_physics(self):
         buf = mmap.mmap(-1, sizeof(SPageFilePhysics), u"Local\\acpmf_physics")
         data = SPageFilePhysics.from_buffer(buf)
         return data.toDict()
 
-    def read_static():
+    def read_static(self):
         buf = mmap.mmap(-1, sizeof(SPageFileStatic), u"Local\\acpmf_static")
         data = SPageFileStatic.from_buffer(buf)
         return data.toDict()
 
-    def read_graphics():
+    def read_graphics(self):
         buf = mmap.mmap(-1, sizeof(SPageFileGraphic), u"Local\\acpmf_graphics")
         data = SPageFileGraphic.from_buffer(buf)
         return data.toDict()
