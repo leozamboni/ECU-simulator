@@ -119,7 +119,7 @@
     #ft .row .col.tps p {
       color: orange;
       font-size: 3vw;
-   
+
     }
 
     #ft .row .col.tps div {
@@ -127,7 +127,7 @@
       width: 100%;
       height: 15px;
       text-align-last: justify;
-   
+
     }
 
     #ft .row .col.tps div span {
@@ -301,28 +301,61 @@
       font-size: 3vw;
     }
 
-    #ft #rpm-bar-numbers {
-      width: 100%;
+    #ft #rpm-bar-range {
+      width: 90%;
+      margin-left: 10%;
       text-align-last: justify;
       display: inline-block;
       font-size: 2vw;
     }
 
-    #settings-div {
-      width: 50px;
-      z-index: 0;
-      position: absolute;
+    #ft .row .col.rec {
+      height: 50px;
+      color: red;
+      text-shadow:
+        0 0 7px red,
+        0 0 10px red,
+        0 0 21px red,
+        0 0 42px red,
+        0 0 82px red,
+        0 0 92px red,
+        0 0 102px red,
+        0 0 151px red;
+    }
+
+    #ft .row .col.rec .dot {
+      height: 10px;
+      width: 10px;
+      background-color: red;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow:
+        0 0 7px red,
+        0 0 10px red,
+        0 0 21px red,
+        0 0 42px red,
+        0 0 82px red,
+        0 0 92px red,
+        0 0 102px red,
+        0 0 151px red;
+      ;
+    }
+
+    #ft .row .col.rec span {
       text-align: center;
+      -webkit-animation: glow 1s ease-in-out infinite alternate;
+      -moz-animation: glow 1s ease-in-out infinite alternate;
+      animation: glow 0.5s ease-in-out infinite alternate;
     }
 
-    #settings-div:hover {
-      cursor: pointer;
-    }
+    @-webkit-keyframes glow {
+      from {
+        opacity: 0;
+      }
 
-    #settings-div #settings-btn {
-      height: 20px;
-      margin-top: 50%;
-      color: #8b8b8b;
+      to {
+        opacity: 1;
+      }
     }
   </style>
 </head>
@@ -330,9 +363,6 @@
 <body>
   <main id="ft">
     <div class="row">
-      <div id="settings-div" onclick="settings()">
-        <i data-feather="settings" id="settings-btn"></i>
-      </div>
       <div class="col rpm">
         <p id="rpm">7380 </p>
       </div>
@@ -341,12 +371,14 @@
         <br />
         <p>RPM</p>
       </div>
-      <div class="col"></div>
+      <div class="col rec" style="text-align: left;">
+        <span><span class="dot"></span> REC</span>
+      </div>
     </div>
     <div class="row bar">
       <ul id="rpm-bar"></ul>
     </div>
-    <div id="rpm-bar-numbers">1 2 3 4 5 6 7 8 9</div>
+    <div id="rpm-bar-range">1 2 3 4 5 6 7 8 9</div>
     <div class="row">
       <div class="col"></div>
       <div class="col gear">
@@ -433,12 +465,11 @@
     </div>
   </main>
   <script defer>
-    const gear = document.getElementById("gear");
     const rpm = document.getElementById("rpm");
+    const gear = document.getElementById("gear");
     const kmh = document.getElementById("kmh");
     const maxRPM = document.getElementById("max-rpm");
     const gas = document.getElementById("gas");
-
     const rpmBar = document.getElementById("rpm-bar");
     const tbsBar = document.getElementById("tps-bar");
     const fuelBar = document.getElementById("fuel-bar");
@@ -448,24 +479,27 @@
     function renderRPM(percent) {
       if (percent > 100) return;
       rpmBar.innerHTML = "";
-      let defH = 25;
-      const sw = Math.floor(window.innerWidth / 3);
-      for (let i = 0; i < sw; i++) {
-        const rpmBarLi = document.createElement("li");
-        if (i > sw * 0.8) {
-          rpmBarLi.style.height = defH + "px";
-        } else if (i > sw / 2.5) {
-          defH += 0.5;
-          rpmBarLi.style.height = defH + "px";
+      let unitH = 25;
+      const barW = Math.floor(window.innerWidth / 3);
+      for (let i = 0; i < barW; i++) {
+        const rpmBarUnit = document.createElement("li");
+
+        if (i > barW * 0.8) {
+          rpmBarUnit.style.height = unitH + "px";
+        } else if (i > barW / 2.5) {
+          unitH += 0.5;
+          rpmBarUnit.style.height = unitH + "px";
         }
-        if ((i / sw) * 100 > percent) {
-          rpmBarLi.style.backgroundColor = "#242424";
+
+        if ((i / barW) * 100 > percent) {
+          rpmBarUnit.style.backgroundColor = "#242424";
         } else {
-          rpmBarLi.style.background =
+          rpmBarUnit.style.background =
             "linear-gradient(90deg, rgba(255,218,0,1) 0%, rgba(255,0,0,1) 70%)";
-          rpmBarLi.style.backgroundAttachment = "fixed";
+          rpmBarUnit.style.backgroundAttachment = "fixed";
         }
-        rpmBar.appendChild(rpmBarLi);
+
+        rpmBar.appendChild(rpmBarUnit);
       }
     }
 
@@ -488,39 +522,39 @@
     async function run() {
       await fetch(document.location.origin)
         .then((T) => T.json())
-        .then((v) => {
-          // gas.innerText = v.physics.gas.toFixed(1);
-
-          if (maxRPM.innerText !== v.static.maxRpm) {
-            maxRPM.innerText = v.static.maxRpm;
-            const rpm_bar_numbers =
-              document.getElementById("rpm-bar-numbers");
-            let numbers = [
+        .then((resp) => {
+          if (maxRPM.innerText !== resp.static.maxRpm) {
+            maxRPM.innerText = resp.static.maxRpm;
+            const rpmBarRange =
+              document.getElementById("rpm-bar-range");
+            const range = [
               ...Array(
-                Number(Math.round(v.static.maxRpm).toString()[0]) + 1
+                Number(Math.round(resp.static.maxRpm).toString()[0]) + 1
               ).keys(),
             ];
-            numbers.shift();
-            rpm_bar_numbers.innerText = numbers.join(" ");
+            range.shift();
+            rpmBarRange.innerText = range.join(" ");
           }
 
-          kmh.innerText = v.physics.speedKmh.toFixed(0);
-
-          if (v.physics.gear - 1 === 0) {
+          if (resp.physics.gear - 1 === 0) {
             gear.innerText = "N";
-          } else if (v.physics.gear - 1 < 0) {
+          } else if (resp.physics.gear - 1 < 0) {
             gear.innerText = "R";
           } else {
-            if (gear.innerText !== v.physics.gear - 1) {
-              gear.innerText = v.physics.gear - 1;
+            if (gear.innerText !== resp.physics.gear - 1) {
+              gear.innerText = resp.physics.gear - 1;
             }
           }
 
-          rpm.innerText = v.physics.rpms;
+          kmh.innerText = resp.physics.speedKmh.toFixed(0);
+          rpm.innerText = resp.physics.rpms;
 
-          if (v.physics.rpms && v.static.maxRpm) {
-            renderRPM((v.physics.rpms / v.static.maxRpm) * 100);
-            if ((v.physics.rpms / v.static.maxRpm) * 100 >= 95) {
+          renderBrake((resp.physics.brake / 1) * 100);
+          renderGas((resp.physics.gas / 1) * 100);
+
+          if (resp.physics.rpms && resp.static.maxRpm) {
+            renderRPM((resp.physics.rpms / resp.static.maxRpm) * 100);
+            if ((resp.physics.rpms / resp.static.maxRpm) * 100 >= 95) {
               if (gear.style.color === "red") {
                 gear.style.color = "white";
               } else {
@@ -531,31 +565,25 @@
             }
           }
 
-          renderBrake((v.physics.brake / 1) * 100);
-          renderGas((v.physics.gas / 1) * 100);
-
-          if (v.physics.fuel && v.static.maxFuel) {
-            renderFuel((v.physics.fuel / v.static.maxFuel) * 100);
+          if (resp.physics.fuel && resp.static.maxFuel) {
+            renderFuel((resp.physics.fuel / resp.static.maxFuel) * 100);
           }
 
-          if (v.physics.turboBoost && v.static.maxTurboBoost) {
+          if (resp.physics.turboBoost && resp.static.maxTurboBoost) {
             renderTurboBoost(
-              (v.physics.turboBoost / v.static.maxTurboBoost) * 100
+              (resp.physics.turboBoost / resp.static.maxTurboBoost) * 100
             );
           }
         });
       run();
     }
 
+    window.addEventListener('resize', function (event) {
+      renderRPM(-1);
+    }, true);
+
     renderRPM(-1);
     run();
-
-    function settings() {
-      const settingsDiv = document.getElementById('settings-div')
-      settingsDiv.innerHTML=`
-      <div style="position: absolute; width: 100vw; height: 100vh; background-color: white; z-index: 99999;"></div>
-      `  
-    }
 
     feather.replace()
   </script>
