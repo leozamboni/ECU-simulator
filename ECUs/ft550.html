@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FT550</title>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;900&display=swap" rel="stylesheet" />
@@ -118,6 +119,7 @@
     #ft .row .col.tps p {
       color: orange;
       font-size: 3vw;
+   
     }
 
     #ft .row .col.tps div {
@@ -125,6 +127,7 @@
       width: 100%;
       height: 15px;
       text-align-last: justify;
+   
     }
 
     #ft .row .col.tps div span {
@@ -304,14 +307,34 @@
       display: inline-block;
       font-size: 2vw;
     }
+
+    #settings-div {
+      width: 50px;
+      z-index: 0;
+      position: absolute;
+      text-align: center;
+    }
+
+    #settings-div:hover {
+      cursor: pointer;
+    }
+
+    #settings-div #settings-btn {
+      height: 20px;
+      margin-top: 50%;
+      color: #8b8b8b;
+    }
   </style>
 </head>
 
 <body>
   <main id="ft">
     <div class="row">
+      <div id="settings-div" onclick="settings()">
+        <i data-feather="settings" id="settings-btn"></i>
+      </div>
       <div class="col rpm">
-        <p id="rpm">7380</p>
+        <p id="rpm">7380 </p>
       </div>
       <div class="col max-rpm">
         <p id="max-rpm">11000</p>
@@ -339,8 +362,8 @@
     <div class="row">
       <div class="col info">
         <div class="map">
-          <p>Gas</p>
-          <p id="gas">26.0</p>
+          <p></p>
+          <p id="gas"></p>
         </div>
         <div class="fuel">
           <p>Fuel</p>
@@ -463,10 +486,10 @@
     }
 
     async function run() {
-      await fetch("http://192.168.1.6:5000/")
+      await fetch(document.location.origin)
         .then((T) => T.json())
         .then((v) => {
-          gas.innerText = v.physics.gas.toFixed(1);
+          // gas.innerText = v.physics.gas.toFixed(1);
 
           if (maxRPM.innerText !== v.static.maxRpm) {
             maxRPM.innerText = v.static.maxRpm;
@@ -526,6 +549,15 @@
 
     renderRPM(-1);
     run();
+
+    function settings() {
+      const settingsDiv = document.getElementById('settings-div')
+      settingsDiv.innerHTML=`
+      <div style="position: absolute; width: 100vw; height: 100vh; background-color: white; z-index: 99999;"></div>
+      `  
+    }
+
+    feather.replace()
   </script>
 </body>
 
