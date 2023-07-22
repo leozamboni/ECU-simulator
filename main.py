@@ -1,7 +1,7 @@
 # python3 -m flask --app main run --host=0.0.0.0
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
-from src.supported import assetto_corsa
+from ECUSimulator.supported import assetto_corsa
 import logging
 import socket
 
