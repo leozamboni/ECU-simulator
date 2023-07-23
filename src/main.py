@@ -1,9 +1,19 @@
 # python3 -m flask --app main run --host=0.0.0.0
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
-from supported import assetto_corsa
+from settings import webTelemetryDisplaySettings
+from supported.assetto_corsa.assetto_corsa import AssettoCorsa
 import logging
 import socket
+import sys
+import os
+
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
+gameDir = webTelemetryDisplaySettings['game'].lower().replace(" ", "_")
+displayDir = webTelemetryDisplaySettings['display']
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -12,7 +22,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
 
-assettoCorsa = assetto_corsa.AssettoCorsa()
+assettoCorsa = AssettoCorsa()
 localNetAddr = s.getsockname()[0]
 s.close()
 
@@ -32,7 +42,7 @@ def get_values():
 @app.route("/ecu")
 @cross_origin()
 def index():
-	file = open('./src/ECUs/ft550.html',mode='r')
+	file = open(f'./src/displays/{gameDir}/{displayDir}/{displayDir}.html',mode='r')
 	return file.read()
 
 
